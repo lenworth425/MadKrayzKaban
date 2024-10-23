@@ -1,25 +1,36 @@
 import { UserLogin } from "../interfaces/UserLogin";
 
 const login = async (userInfo: UserLogin) => {
+  console.log('Attempting login with:', { 
+    username: userInfo.username, 
+    passwordLength: userInfo.password ? userInfo.password.length : 'null' 
+  });
   // TODO: make a POST request to the login route
   try {
-    const response = await fetch('/api/users/login', {
+    const response = await fetch('api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userInfo)
     });
-    const data = await response.json();
-
-    if(!response.ok) {
+    console.log('Response status:', response.status);
+    
+    if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(`Error: ${errorData.message}`);
+      console.error('Login failed:', errorData);
+      if (response.status === 401) {
+        throw new Error('Invalid credentials');
     }
-    return data;
-  } catch (err) {
-    console.log('Error from user login:', err);
-    return Promise.reject('Could not login user');
+    throw new Error('Login Failed');
+  }
+
+    const data = await response.json();
+    console.log('Login successful, token received');
+    return data.token;
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error;
   }
 }
 

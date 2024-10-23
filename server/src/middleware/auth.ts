@@ -8,29 +8,29 @@ interface JwtPayload {
   username: string;
 }
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload;
+    }
+  }
+}
+
+export const authenticateToken = (req: Request, res: Response, next: NextFunction): void | Response => {
   // TODO: verify the token exists and add the user data to the request object
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  
+  if (token == null) {
+    return res.sendStatus(401);
+  }
 
-  if (authHeader) {
-    const token = authHeader.split(' ')[1];
-
-    const secretKey = process.env.JWT_SECRET_KEY;
-    if (!secretKey) {
-      return res.sendStatus(500); // Internal Server Error if the secret key is not defined
+  jwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {
+    if (err) {
+      return res.sendStatus(403);
     }
 
-    jwt.verify(token, secretKey, (err, user) => {
-      if (err) {
-        return res.sendStatus(403).json({ message: 'Invalid token' });
-      }
-
-      req.user = user as JwtPayload;
-      return next();
-    });
-  } else {
-    return res.sendStatus(401).json({ message: 'Unauthorized-ntp' });
-  }
-  // Ensure all code paths return a value
-  return;
+    req.user = user as JwtPayload;
+    return next();
+  });
 };
