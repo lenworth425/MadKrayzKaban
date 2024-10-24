@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await login(loginData);
-      Auth.login(data.token);
+      Auth.login(data);
     } catch (err) {
       console.error('Failed to login', err);
     }

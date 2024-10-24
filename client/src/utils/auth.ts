@@ -16,10 +16,10 @@ class AuthService {
   loggedIn(): boolean {
     // TODO: return a value that indicates if the user is logged in
     const token = this.getToken();
-    if (!token) {
-      return false;
-    }
-    return !this.isTokenExpired(token);
+    // if (!token) {
+    //   return false;
+    // }
+    return !!token && !this.isTokenExpired(token);
 
   }
   

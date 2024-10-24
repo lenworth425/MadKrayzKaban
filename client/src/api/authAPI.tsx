@@ -5,9 +5,10 @@ const login = async (userInfo: UserLogin) => {
     username: userInfo.username, 
     passwordLength: userInfo.password ? userInfo.password.length : 'null' 
   });
+
   // TODO: make a POST request to the login route
   try {
-    const response = await fetch('api/user/login', {
+    const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -26,6 +27,7 @@ const login = async (userInfo: UserLogin) => {
   }
 
     const data = await response.json();
+    console.log('Data received:', data);
     console.log('Login successful, token received');
     return data.token;
   } catch (error) {

@@ -34,6 +34,7 @@ export const login = async (req: Request, res: Response) => {
       {expiresIn: '1hr'}
     );
     console.log('Token generated successfully');
+    console.log('Token:', token);
 
     // Returns the token
     console.log(`User ${username} successfully logged in`);
