@@ -3,7 +3,8 @@ Madkrayz Kanban Board
 
 ## Basic Overview
 
-The Madkrayz Kanban Board is a Kanban Board with a JWT authentication to the server API. 
+The Madkrayz Kanban Board is a Kanban Board with a JWT authentication to the server API. The user will start at the login pagin, and requires the user to login.
+Once user logged in, the user can view, create or delete tickets on their account. 
 
 
 
@@ -30,18 +31,17 @@ The following images demonstrates the application's appearance:
 
 Home Page
 
-![Screenshot1](./public/images/Home.png)
+![Screenshot1](./client/public/images/home.png)
 
-Potential Candidates Page
+Login
 
-No Saved Candidates
-![Screenshot2](./public/images/PotBlank.png)
+![Screenshot2](./client/public/images/login.png)
 
-Saved Candidates
-![Screenshot3](./public/images/PotPop.png)
+tickets
+![Screenshot3](./client/public/images/tickets.png)
 
-Removed Candidates
-![Screenshot4](./public/images/PotRem.png)
+create tickets
+![Screenshot4](./client/public/images/create.png)
 
 
 © 2024 lenworth425 Confidential and Proprietary. All Rights Reserved.

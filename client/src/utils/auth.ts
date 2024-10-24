@@ -57,18 +57,8 @@ class AuthService {
     // TODO: remove the token from localStorage
     // TODO: redirect to the login page
     localStorage.removeItem('id_token');
-    window.location.assign('/login');
+    window.location.assign('/');
   }
-
-  checkAuthAndRedirect(): boolean {
-    const token = this.getToken();
-    if (!token || this.isTokenExpired(token)) {
-      this.logout();
-      return false;
-    } 
-      return true;
-    }
-
-  }
+}
 
 export default new AuthService();
